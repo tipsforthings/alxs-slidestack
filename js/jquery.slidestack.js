@@ -16,17 +16,23 @@
       speed:                1000, // In milliseconds
       
       /* Link Settings */
+			linkclass:                 ".slidenav-link", // Link class (minus the dot)
+			linkimageclass:                 "slidenav-link-image", // Link image class (minus the dot)
+			linkimageheight:                 '30px', // Takes size value or 'linksize'
+			linkimagewidth:                 'linksize', // Takes size value or 'linksize'
 			linkmore:                 "next-slide", // Next page link class (minus the dot)
+		  linkmoreimage:                 'false', // Next page link image, 'false' or src url
       linkless:                 "prev-slide", // Previous page link class (minus the dot)
+      linklessimage:                 'false', // Previous page link image, 'false' or src url
       linkcolor:            "#FFF", // Can use HEX colors or RGB(A)
       linkbackground:            "rgba(0,0,0,0.4)", // Can use HEX colors or RGB(A)
-      linklayout:            "updown",  // Available settings - 'updown', 'sides', 'horizontal' and 'vertical'
+      linklayout:            "sides",  // Available settings - 'updown', 'sides', 'horizontal' and 'vertical'
       linkposition:          "right", // 'left' & 'right' for horizontal layout, 'top' & 'bottom' for vertical layout
       linkvmargin:            "1rem", // Link vertical margin
       linkhmargin:            "1rem", // Link horizontal margin
       linkpadding:             "0", // Link padding
-      linkheight:             "30px", // Link height
-      linkwidth:             "80px", // Link width
+      linkheight:             "60px", // Link height
+      linkwidth:             "30px", // Link width
       linkradius:             "5px", // Link border radius
       linkborder:             "none", // Use CSS border shorthand for this, or just 'none'
       
@@ -44,11 +50,19 @@
 
     
     function readMore() {
-      $(options.section).not(options.section + ':last').append('<a href="/" class="' + options.linkmore + '">Next</a>');
+      if (options.linkmoreimage == 'false' ) {
+        $(options.section).not(options.section + ':last').append('<a href="/" class="' + options.linkmore + '">Next</a>');
+      } else {
+        $(options.section).not(options.section + ':last').append('<a href="/" class="' + options.linkmore + '"><img src="' + options.linkmoreimage + '" class="' + options.linkimageclass + '" /></a>');
+      };
     }
 
     function readLess() {
-      $(options.section).not(options.section + ':first').prepend('<a href="/" class="' + options.linkless + '">Prev</a>');
+      if (options.linklessimage == 'false' ) {
+        $(options.section).not(options.section + ':first').prepend('<a href="/" class="' + options.linkless + '">Prev</a>');
+      } else {
+        $(options.section).not(options.section + ':first').prepend('<a href="/" class="' + options.linkless + '"><img src="' + options.linklessimage + '" class="' + options.linkimageclass + '" /></a>');
+      };
     }
 
     function fadeLinks() {
@@ -94,11 +108,26 @@
                                                          'text-decoration':'none',
                                                          'z-index': 1,
                                                          'padding':options.linkpadding,
-                                                         'border-radius':options.linkradius
+                                                         'border-radius':options.linkradius,
+                                                         'outline': 0
       });
       
       $(options.section).not(options.section + ':first').css({'top': windowHeight+'px'});
 
+      if (options.linkimageheight == 'linksize') {
+        $('.' + options.linkimageclass).attr({'height': options.linkheight}).css({'height': options.linkheight});
+      } else {
+        $('.' + options.linkimageclass).attr({'height': options.linkimageheight}).css({'height': options.linkimageheight});
+      };
+
+      if (options.linkimagewidth == 'linksize') {
+        $('.' + options.linkimageclass).attr({'width': options.linkwidth}).css({'width': options.linkwidth});
+      } else {
+        $('.' + options.linkimageclass).attr({'width': options.linkimagewidth}).css({'width': options.linkimagewidth});
+      };
+
+      
+      
       switch (options.linklayout) { 
 
         case 'updown': 
@@ -217,8 +246,8 @@
       
       fadeLinks();
       
-      originSection.delay(250).animate({'top':'100%'}, 1000);
-      prevSection.delay(250).animate({'top':'0px'},1000, function() {
+      originSection.delay(250).animate({'top':'100%'}, 1000, 'easeOutCirc');
+      prevSection.delay(250).animate({'top':'0px'},1000, 'easeOutCirc', function() {
         fadeLinks();
       });
       
@@ -234,8 +263,8 @@
 
       fadeLinks();
 
-      originSection.delay(250).animate({'top':'-100%'}, 1000);
-      nextSection.delay(250).animate({'top':'0px'},1000, function() {
+      originSection.delay(250).animate({'top':'-100%'}, 1000, 'easeOutCirc');
+      nextSection.delay(250).animate({'top':'0px'},1000, 'easeOutCirc', function() {
         fadeLinks();
       });
     });

@@ -9,17 +9,17 @@ $(document).ready(function() {
     /* Link Settings */
 		linkmore:                 'next-slide', // Next page link class (minus the dot)
     linkless:                 'prev-slide', // Previous page link class (minus the dot)
-		linkmoreimage:                 'false', // Next page link image, 'false' or src url
-    linklessimage:                 'false', // Previous page link image, 'false' or src url
+		linkmoreimage:                 '/img/arrow-down.png', // Next page link image, 'false' or src url
+    linklessimage:                 '/img/arrow-up.png', // Previous page link image, 'false' or src url
     linkcolor:            '#FFF', // Can use HEX colors or RGB(A)
-    linkbackground:            'rgba(0,0,0,0.4)', // Can use HEX colors or RGB(A)
-    linklayout:            'horizontal',  // Available settings - 'updown', 'sides', 'horizontal' and 'vertical'
+    linkbackground:            'transparent', // Can use HEX colors or RGB(A)
+    linklayout:            'updown',  // Available settings - 'updown', 'sides', 'horizontal' and 'vertical'
     linkposition:          'left', // 'left' & 'right' for vertical layout, 'top' & 'bottom' for horizontal layout
     linkvmargin:            '1rem', // Link vertical margin
     linkhmargin:            '1rem', // Link horizontal margin
-    linkpadding:             '0', // Link padding
-    linkheight:             '30px', // Link height
-    linkwidth:             '80px', // Link width
+    linkpadding:             '0.5rem 0', // Link padding
+    linkheight:             'unset', // Link height
+    linkwidth:             '60px', // Link width
     linkradius:             '5px', // Link border radius
     linkborder:             'none', // Use CSS border shorthand for this, or just 'none'
     
