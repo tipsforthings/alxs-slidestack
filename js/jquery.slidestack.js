@@ -14,9 +14,11 @@
       inner:              ".slide-container", // Slide inner container
       bgColor:              "transparent", // Can use HEX colors or RGB(A)
       speed:                1000, // In milliseconds
+      easein:                'linear', // Page transition easing, any jQuery compatible easing can go here
+      easeout:                'linear', // Page transition easing, any jQuery compatible easing can go here
       
       /* Link Settings */
-			linkclass:                 ".slidenav-link", // Link class (minus the dot)
+			linkclass:                 "slidenav-link", // Link class (minus the dot)
 			linkimageclass:                 "slidenav-link-image", // Link image class (minus the dot)
 			linkimageheight:                 '30px', // Takes size value or 'linksize'
 			linkimagewidth:                 'linksize', // Takes size value or 'linksize'
@@ -51,17 +53,17 @@
     
     function readMore() {
       if (options.linkmoreimage == 'false' ) {
-        $(options.section).not(options.section + ':last').append('<a href="/" class="' + options.linkmore + '">Next</a>');
+        $(options.section).not(options.section + ':last').append('<a href="/" class="' + options.linkmore + ' ' + options.linkclass + '">Next</a>');
       } else {
-        $(options.section).not(options.section + ':last').append('<a href="/" class="' + options.linkmore + '"><img src="' + options.linkmoreimage + '" class="' + options.linkimageclass + '" /></a>');
+        $(options.section).not(options.section + ':last').append('<a href="/" class="' + options.linkmore + ' ' + options.linkclass + '"><img src="' + options.linkmoreimage + '" class="' + options.linkimageclass + '" /></a>');
       };
     }
 
     function readLess() {
       if (options.linklessimage == 'false' ) {
-        $(options.section).not(options.section + ':first').prepend('<a href="/" class="' + options.linkless + '">Prev</a>');
+        $(options.section).not(options.section + ':first').prepend('<a href="/" class="' + options.linkless + ' ' + options.linkclass + '">Prev</a>');
       } else {
-        $(options.section).not(options.section + ':first').prepend('<a href="/" class="' + options.linkless + '"><img src="' + options.linklessimage + '" class="' + options.linkimageclass + '" /></a>');
+        $(options.section).not(options.section + ':first').prepend('<a href="/" class="' + options.linkless + ' ' + options.linkclass + '"><img src="' + options.linklessimage + '" class="' + options.linkimageclass + '" /></a>');
       };
     }
 
@@ -101,7 +103,7 @@
                             'width': '100%'
       });
       
-      $("." + options.linkmore + ", ." + options.linkless ).css({'position':'absolute', 
+      $("." + options.linkclass).css({'position':'absolute', 
                                                          'text-align':'center',
                                                          'color': options.linkcolor, 
                                                          'background-color': options.linkbackground,
@@ -132,7 +134,7 @@
 
         case 'updown': 
           
-          $('.' + options.linkmore + ', .' + options.linkless)
+          $('.' + options.linkclass)
             .css({'left':0,
                   'right':0,
                   'height': options.linkheight,
@@ -158,7 +160,7 @@
         
         case 'sides': 
           
-          $('.' + options.linkmore + ', .' + options.linkless)
+          $('.' + options.linkclass)
             .css({'top':0,
                   'bottom':0,
                   'width': options.linkwidth,
@@ -187,39 +189,42 @@
           break;
         
         case 'vertical': 
-          $('.' + options.linkmore + ', .' + options.linkless)
+          $('.' + options.linkclass)
             .css({'height': options.linkheight,
                   'width': options.linkwidth,
                   'line-height': options.linkheight,
                 });
+
           if (options.linkposition == 'left') {
-            $('.' + options.linkmore + ', .' + options.linkless)
+            $('.' + options.linkclass)
               .css({'left': options.linkhmargin});
           } else {
-            $('.' + options.linkmore + ', .' + options.linkless)
+            $('.' + options.linkclass)
               .css({'right': options.linkhmargin});
           };
           
           $('.' + options.linkmore )
             .css({'bottom': options.linkvmargin});
+
           $('.' + options.linkless )
             .css({'top': options.linkvmargin});
+
           break;
 
 
         case 'horizontal': 
 
-          $('.' + options.linkmore + ', .' + options.linkless)
+          $('.' + options.linkclass)
             .css({'height': options.linkheight,
                   'width': options.linkwidth,
                   'line-height': options.linkheight,
                 });
           
           if (options.linkposition == 'top') {
-            $('.' + options.linkmore + ', .' + options.linkless)
+            $('.' + options.linkclass)
               .css({'top': options.linkvmargin});
           } else {
-            $('.' + options.linkmore + ', .' + options.linkless)
+            $('.' + options.linkclass)
               .css({'bottom': options.linkvmargin});
           };
           
@@ -246,8 +251,8 @@
       
       fadeLinks();
       
-      originSection.delay(250).animate({'top':'100%'}, 1000, 'easeOutCirc');
-      prevSection.delay(250).animate({'top':'0px'},1000, 'easeOutCirc', function() {
+      originSection.delay(250).animate({'top':'100%'}, 1000, options.easeout);
+      prevSection.delay(250).animate({'top':'0px'},1000, options.easein, function() {
         fadeLinks();
       });
       
@@ -263,8 +268,8 @@
 
       fadeLinks();
 
-      originSection.delay(250).animate({'top':'-100%'}, 1000, 'easeOutCirc');
-      nextSection.delay(250).animate({'top':'0px'},1000, 'easeOutCirc', function() {
+      originSection.delay(250).animate({'top':'-100%'}, 1000, options.easeout);
+      nextSection.delay(250).animate({'top':'0px'},1000, options.easein, function() {
         fadeLinks();
       });
     });
