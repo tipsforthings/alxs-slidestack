@@ -16,6 +16,7 @@
       speed:                1000, // In milliseconds
       easein:                'linear', // Page transition easing, any jQuery compatible easing can go here
       easeout:                'linear', // Page transition easing, any jQuery compatible easing can go here
+      direction:                'horizontal', // Page transition easing, any jQuery compatible easing can go here
       
       /* Link Settings */
 			linkclass:                 "slidenav-link", // Link class (minus the dot)
@@ -77,7 +78,7 @@
       readMore();
       
       if (options.linkborder != 'none' ) {
-        $("." + options.linkmore + ", ." + options.linkless ).css({'border': options.linkborder});
+        $("." + options.linkclass ).css({'border': options.linkborder});
       };
 
       if (options.containermax != 'false' ) {
@@ -113,8 +114,12 @@
                                                          'border-radius':options.linkradius,
                                                          'outline': 0
       });
-      
-      $(options.section).not(options.section + ':first').css({'top': windowHeight+'px'});
+
+      if (options.direction == 'horizontal') {
+        $(options.section).not(options.section + ':first').css({'left': windowWidth+'px', 'right': '-' + windowWidth + 'px'});
+      } else {
+        $(options.section).not(options.section + ':first').css({'top': windowHeight+'px'});
+      };
 
       if (options.linkimageheight == 'linksize') {
         $('.' + options.linkimageclass).attr({'height': options.linkheight}).css({'height': options.linkheight});
@@ -251,10 +256,17 @@
       
       fadeLinks();
       
-      originSection.delay(250).animate({'top':'100%'}, 1000, options.easeout);
-      prevSection.delay(250).animate({'top':'0px'},1000, options.easein, function() {
-        fadeLinks();
-      });
+      if (options.direction == 'horizontal') {
+        originSection.delay(250).animate({'left': windowWidth + 'px', 'right' : '-' + windowWidth + 'px'}, 1000, options.easeout);
+        prevSection.delay(250).animate({'left':'0px','right':'0px'},1000, options.easein, function() {
+          fadeLinks();
+        });
+      } else {
+        originSection.delay(250).animate({'top':'100%'}, 1000, options.easeout);
+        prevSection.delay(250).animate({'top':'0px'},1000, options.easein, function() {
+          fadeLinks();
+        });
+      };
       
       
     });
@@ -268,10 +280,18 @@
 
       fadeLinks();
 
-      originSection.delay(250).animate({'top':'-100%'}, 1000, options.easeout);
-      nextSection.delay(250).animate({'top':'0px'},1000, options.easein, function() {
-        fadeLinks();
-      });
+      if (options.direction == 'horizontal') {
+        originSection.delay(250).animate({'left':'-' + windowWidth + 'px', 'right' : windowWidth + 'px'}, 1000, options.easeout);
+        nextSection.delay(250).animate({'left':'0px','right':'0px'},1000, options.easein, function() {
+          fadeLinks();
+        });
+      } else {
+        $(options.section).not(options.section + ':first').css({'top': windowHeight+'px'});
+        originSection.delay(250).animate({'top':'-100%'}, 1000, options.easeout);
+        nextSection.delay(250).animate({'top':'0px'},1000, options.easein, function() {
+          fadeLinks();
+        });
+      };
     });
   };
 }( jQuery ));
