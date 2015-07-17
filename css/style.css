@@ -1,0 +1,22 @@
+body {
+  background-image: url('/img/bg03.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+.slide {
+  background-color: rgba(255,255,255,0.6);
+}
+.slide-container {
+  margin: 0 auto;
+}
+.slide-inner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.slide-container a {
+}
