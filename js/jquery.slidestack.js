@@ -17,6 +17,7 @@
       easein:                'linear', // Page transition easing, any jQuery compatible easing can go here
       easeout:                'linear', // Page transition easing, any jQuery compatible easing can go here
       direction:                'vertical', // Page transition easing, any jQuery compatible easing can go here
+      centercontent:            'true', // Vertically and horizontally align content in each slide
       
       /* Link Settings */
 			linkclass:                 "slidenav-link", // Link class (minus the dot)
@@ -111,6 +112,10 @@
         $(options.inner ).css({'max-width': options.containermax});
       };
 
+      if (options.centercontent == 'true' ) {
+        $(options.inner ).css({'display': 'table-cell', 'vertical-align':'middle', 'text-align':'center'}).find('div').css({'text-align':'center'});
+      };
+
       $(options.wrapper).css({'position': 'fixed',
                               "height":windowHeight+"px",
                               'width':windowWidth + 'px',
@@ -128,7 +133,7 @@
 
       $(options.inner).css({'height':windowHeight+'px',
                             'position':'relative',
-                            'width': '100%'
+                            'width': windowWidth + 'px'
       });
       
       $("." + options.linkclass).css({'position':'absolute', 
