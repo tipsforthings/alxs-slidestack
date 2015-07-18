@@ -16,7 +16,7 @@
       speed:                1000, // In milliseconds
       easein:                'linear', // Page transition easing, any jQuery compatible easing can go here
       easeout:                'linear', // Page transition easing, any jQuery compatible easing can go here
-      direction:                'horizontal', // Page transition easing, any jQuery compatible easing can go here
+      direction:                'vertical', // Page transition easing, any jQuery compatible easing can go here
       
       /* Link Settings */
 			linkclass:                 "slidenav-link", // Link class (minus the dot)
@@ -72,11 +72,37 @@
       $('a').fadeToggle(250);
     }
     
-    
+    $(window).resize(function() {
+
+      windowHeight = $(window).height();
+      windowWidth = $(window).width();
+      var slide = $(options.section);
+      var allcontainers = $(options.wrapper + ', ' + options.section + ', ' + options.inner)
+      slide.each( function(i) {
+        var top = $(this).css('top');
+        var left = $(this).css('left');
+        
+        if (options.direction != 'horizontal' && top != '0px') {
+          $(this).css({'top': windowHeight + 'px'});
+        };
+        if (options.direction == 'horizontal' && left != '0px') {
+          $(this).css({'left': windowWidth + 'px','right': '-' + windowWidth + 'px'});
+        };
+      });
+
+      allcontainers.css({'height':windowHeight+'px','width':windowWidth + 'px'});
+                                                                              
+      
+
+      
+    });
     function prepareDOM() {
       readLess();
       readMore();
       
+      var windowHeight = $(window).height();
+      var windowWidth = $(window).width();
+
       if (options.linkborder != 'none' ) {
         $("." + options.linkclass ).css({'border': options.linkborder});
       };
@@ -87,6 +113,7 @@
 
       $(options.wrapper).css({'position': 'fixed',
                               "height":windowHeight+"px",
+                              'width':windowWidth + 'px',
                               'top':'0',
                               'left':'0',
                               'right':'0'
@@ -286,7 +313,6 @@
           fadeLinks();
         });
       } else {
-        $(options.section).not(options.section + ':first').css({'top': windowHeight+'px'});
         originSection.delay(250).animate({'top':'-100%'}, 1000, options.easeout);
         nextSection.delay(250).animate({'top':'0px'},1000, options.easein, function() {
           fadeLinks();
