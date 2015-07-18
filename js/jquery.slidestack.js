@@ -41,7 +41,7 @@
       linkborder:             "none", // Use CSS border shorthand for this, or just 'none'
       
       /* Container Settings */
-      containermax:           'false', // Container max-width or 'false'
+      containermax:           '1080px', // Container max-width or 'false'
       padenable:                 'true', // Enable container padding to account for links
       padvalue:                 'linksize'// Container padding amount, takes size value or 'linksize'
 
@@ -51,6 +51,7 @@
     var objD;
     var windowHeight = $(window).height();
     var windowWidth = $(window).width();
+    var documentWidth = $(document).width();
 
     
     function readMore() {
@@ -73,8 +74,7 @@
       $('a').fadeToggle(250);
     }
     
-    $(window).resize(function() {
-
+    function sortSizes() {
       windowHeight = $(window).height();
       windowWidth = $(window).width();
       var slide = $(options.section);
@@ -92,10 +92,9 @@
       });
 
       allcontainers.css({'height':windowHeight+'px','width':windowWidth + 'px'});
-                                                                              
-      
-
-      
+    }
+    $(window).resize(function() {
+      sortSizes()
     });
     function prepareDOM() {
       readLess();
@@ -108,23 +107,20 @@
         $("." + options.linkclass ).css({'border': options.linkborder});
       };
 
-      if (options.containermax != 'false' ) {
-        $(options.inner ).css({'max-width': options.containermax});
-      };
-
       if (options.centercontent == 'true' ) {
-        $(options.inner ).css({'display': 'table-cell', 'vertical-align':'middle', 'text-align':'center'}).find('div').css({'text-align':'center'});
+        $(options.inner ).css({'display': 'table-cell', 'vertical-align':'middle', 'text-align':'center'});
       };
 
       $(options.wrapper).css({'position': 'fixed',
                               "height":windowHeight+"px",
-                              'width':windowWidth + 'px',
+                              'width': windowWidth + 'px',
                               'top':'0',
                               'left':'0',
                               'right':'0'
       });
       
       $(options.section).css({'height':windowHeight+'px',
+                              'width': windowWidth + 'px',
                               'position':'absolute',
                               'top': 0, 
                               'left': '0', 
@@ -277,7 +273,7 @@
     };
 
     prepareDOM();
-    
+    sortSizes()
     
     $("." + options.linkless).click(function(e) {
       e.preventDefault();

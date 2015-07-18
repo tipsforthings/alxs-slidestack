@@ -1,0 +1,38 @@
+body {
+  background-image: url('/img/bg03.jpg');
+}
+.slide {
+  background-color: rgba(255,255,255,0.6);
+}
+h1 {
+  font-size: 4rem;
+  margin: 2rem auto;
+}
+p {
+  max-width: 780px;
+  margin: 1rem auto 2rem;
+  line-height: 1.5rem;
+}
+.primary-button {
+  color: #FFF;
+  background-color: rgba(0,0,0,0.6);
+  border: 1px solid #FFF;
+  box-shadow: 0px 0px 1px #FFF;
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+}
+.ccontainer {
+  max-width: 1080px;
+  margin: 0 auto;
+  position: relative;
+}
+iframe.youtube {
+  width: 80%;
+  height: 80%;
+}
+@media(max-width: 800px) {
+  p {
+    margin: 1rem 1rem 2rem;
+  }
+}

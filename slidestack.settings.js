@@ -26,7 +26,6 @@ $(document).ready(function() {
     linkborder:             'none', // Use CSS border shorthand for this, or just 'none'
     
     /* Container Settings */
-    containermax:           'false', // Container max-width or 'false'
     padenable:                 'true', // Enable container padding to account for links
     padvalue:                 'linksize'// Container padding amount, takes size value or 'linksize'
   });
